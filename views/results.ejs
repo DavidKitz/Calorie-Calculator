@@ -1,0 +1,14 @@
+<h1> Hellor Worrld</h1>
+
+<% let median=[]; let nbr=0; let result=0; %>
+<% dataSet.forEach((data)=> { %>
+  <% median.push(data.fields.nf_calories);   %>  
+<% }) %>
+<% for (let i=0;i<=median.length-1;i++) {  %>
+<% nbr+=median[i]; %>
+<%} %>
+
+<h2 > Die Kalorien von 100g    <%=  food[0].toUpperCase()+ food.slice(1);  %> betragen: <%=  result+= Math.floor(nbr/median.length-1);  %>kcal </h2>
+<form action="/" method="GET">
+  <input type="submit" value="Search for more food">
+</form>
