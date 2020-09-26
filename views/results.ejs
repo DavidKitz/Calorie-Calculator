@@ -1,14 +1,28 @@
-<h1> Hellor Worrld</h1>
+<h1> Results for <%= food[0].toUpperCase()+ food.slice(1) %> </h1>
+<% if (dataSet.length===0) { %> <h1>No results found sorry!</h1>  <% } %>
 
-<% let median=[]; let nbr=0; let result=0; %>
+<table>
+  <% if(dataSet.length===0 !== true) { %>
+  <tr>
+    <td>Name of the Food</td>
+    <td>Serving Size</td>
+    <td>Calories</td>
+    <td>Protein</td>
+    <td>Carbohydrates</td>
+  </tr>
+
 <% dataSet.forEach((data)=> { %>
-  <% median.push(data.fields.nf_calories);   %>  
-<% }) %>
-<% for (let i=0;i<=median.length-1;i++) {  %>
-<% nbr+=median[i]; %>
-<%} %>
+ 
+  <tr>
+  <td>  <%= data.shrt_desc %></td> <td> 100g </td> <td>
+    <%= data.energ_kcal+ "kcal" %> </td> <td><%= data.protein %></td><td><%= data.carbohydrt %></td> <td> <button>Add</button></td>
 
-<h2 > Die Kalorien von 100g    <%=  food[0].toUpperCase()+ food.slice(1);  %> betragen: <%=  result+= Math.floor(nbr/median.length-1);  %>kcal </h2>
+   </tr> 
+  
+  <% }) } %>
+  
+</table>
+
 <form action="/" method="GET">
   <input type="submit" value="Search for more food">
 </form>
