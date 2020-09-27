@@ -1,16 +1,31 @@
 const express=require('express');
 const app= express();
 const axios = require('axios');
+const { Template } = require('ejs');
+var bodyParser = require('body-parser');
 
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+// get information from the table to a form and send it to "/" or mby send to localstorage and get it from there?
 app.set("view engine", "ejs");
+
+
+
+
 
 app.get('/',(req,res)=> {
     res.render("search");
     
+    
 })
+app.post("/", urlencodedParser, (req,res)=> {
+
+let data=req.body;
+res.render("calculating", {data:data})
+})
+
 app.get("/results",(req,res)=> {
-   res.render("results");
+  
 })
 app.get("/information", (req,res)=> {
 let food=req.query.search;
@@ -31,9 +46,9 @@ axios({
             let parser=JSON.stringify(response.data);
             
           let dataSet=response.data;
-          console.log(response.data)
+         
           res.render("results", {dataSet:dataSet, food:food});
-
+          
         })
         .catch((error)=>{
           console.log(error)

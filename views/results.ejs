@@ -1,5 +1,5 @@
 <h1> Results for <%= food[0].toUpperCase()+ food.slice(1) %> </h1>
-<% if (dataSet.length===0) { %> <h1>No results found sorry!</h1>  <% } %>
+<%  if (dataSet.length===0) { %> <h1>No results found sorry!</h1>  <% } %>
 
 <table>
   <% if(dataSet.length===0 !== true) { %>
@@ -12,10 +12,19 @@
   </tr>
 
 <% dataSet.forEach((data)=> { %>
- 
+
   <tr>
   <td>  <%= data.shrt_desc %></td> <td> 100g </td> <td>
-    <%= data.energ_kcal+ "kcal" %> </td> <td><%= data.protein %></td><td><%= data.carbohydrt %></td> <td> <button>Add</button></td>
+    <%= data.energ_kcal+ "kcal" %> </td> <td><%= data.protein %></td><td><%= data.carbohydrt %></td>
+     <td> 
+      <form action="/" method="POST">
+        <input type="hidden" name="name" value="<%= data.shrt_desc %>">
+        <input type="hidden" name="kcal" value="<%= data.energ_kcal %>">
+        <input type="hidden" name="protein" value="<%= data.protein %>">
+        <input type="hidden" name="carbs" value="<%= data.carbohydrt %>">
+        <input type="submit"  value="submit">
+     </form>
+      </td>
 
    </tr> 
   
