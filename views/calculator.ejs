@@ -1,0 +1,41 @@
+<% function deleteList(i) { %>
+  <%  data.splice(i,1); %>
+    <%  } %>
+
+<% let calIntake=0 %>
+
+  <form action="/information" method="GET">
+    <input type="text"  placeholder="Search for more food" name="search" required>
+    <input type="submit">
+    </form>
+    <table>
+       
+        <tr>
+          <td>Name of the Food</td>
+          <td>Serving Size</td>
+          <td>Calories</td>
+          <td>Protein</td>
+          <td>Carbohydrates</td>
+        </tr>
+        
+<% for (let i=0;i<data.length;i++) { %>
+<% calIntake+= Number(data[i].kcal) %>
+
+
+
+    <tr>
+    <td>  <%= data[i].name %></td> <td> 100g </td> <td>
+      <%= data[i].kcal+ "kcal" %> </td> <td><%= data[i].protein %></td><td><%= data[i].carbs %></td>
+      <td> <button  onclick="<%= deleteList(i), %> randy()">Delete</button></td>  
+    </tr>
+    <% } %>
+    
+    <h2> Your current calory intake today is <%= calIntake %>kcal %>  </h2>   
+     
+     
+      </table>
+<script>
+  function randy() {
+    location.reload();
+  }
+</script>

@@ -5,10 +5,9 @@ const { Template } = require('ejs');
 var bodyParser = require('body-parser');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+let data=[];
 // get information from the table to a form and send it to "/" or mby send to localstorage and get it from there?
 app.set("view engine", "ejs");
-
 
 
 
@@ -20,8 +19,10 @@ app.get('/',(req,res)=> {
 })
 app.post("/", urlencodedParser, (req,res)=> {
 
-let data=req.body;
-res.render("calculating", {data:data})
+
+data.push(req.body);
+console.log(data);
+res.render("calculator", {data:data})
 })
 
 app.get("/results",(req,res)=> {
