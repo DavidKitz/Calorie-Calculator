@@ -20,8 +20,21 @@ app.get('/',(req,res)=> {
 app.post("/", urlencodedParser, (req,res)=> {
 
 
-data.push(req.body);
-console.log(data);
+ let current=req.body.name;
+ let current2=req.body;
+ test(current,current2);
+ 
+ function test (rName,rObj) {
+  for (let i=0;i<=data.length;i++) {
+
+    if(data[i] && data[i].name===rName) {
+      console.log("I SHOULD NOT BE HERE");
+      return;
+    }
+  }
+  data.push(rObj);
+}
+
 res.render("calculator", {data:data})
 })
 
