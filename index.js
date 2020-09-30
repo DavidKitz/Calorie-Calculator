@@ -17,13 +17,14 @@ app.get('/',(req,res)=> {
     
     
 })
-app.post("/", urlencodedParser, (req,res)=> {
+app.post("/calculus", urlencodedParser, (req,res)=> {
 
 
  let current=req.body.name;
  let current2=req.body;
- test(current,current2);
- 
+
+test(current,current2);
+console.log(data);
  function test (rName,rObj) {
   for (let i=0;i<=data.length;i++) {
 
@@ -36,11 +37,19 @@ app.post("/", urlencodedParser, (req,res)=> {
 }
 
 res.render("calculator", {data:data})
-})
+});
+
+app.get("/calculus/:id", (req,res)=> {
+  const { id } = req.params;
+  data.splice(id,1);
+  console.log(data);
+  res.render("calculator",{data:data})
+});
 
 app.get("/results",(req,res)=> {
   
 })
+
 app.get("/information", (req,res)=> {
 let food=req.query.search;
 
@@ -57,7 +66,7 @@ axios({
   }
   })
         .then((response)=>{
-            let parser=JSON.stringify(response.data);
+            
             
           let dataSet=response.data;
          

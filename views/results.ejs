@@ -17,7 +17,7 @@
   <td>  <%= data.shrt_desc %></td> <td> 100g </td> <td>
     <%= data.energ_kcal+ "kcal" %> </td> <td><%= data.protein %></td><td><%= data.carbohydrt %></td>
      <td> 
-      <form action="/" method="POST">
+      <form action="/calculus" method="POST">
         <input type="hidden" name="name" value="<%= data.shrt_desc %>">
         <input type="hidden" name="kcal" value="<%= data.energ_kcal %>">
         <input type="hidden" name="protein" value="<%= data.protein %>">

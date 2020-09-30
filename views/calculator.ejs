@@ -1,13 +1,9 @@
 
 <% let deleteList= function (i) { %>
  <% data.splice(i,1)  } %>
-<% let calIntake=0 %>
+<% let calIntake=0,protIntake=0,carbIntake=0,k=1,count=0; %>
 
-  <form action="/information" method="GET">
-    <input type="text"  placeholder="Search for more food" name="search" required>
-    <input type="submit">
-    </form>
-
+ 
     
     <table>
        
@@ -18,26 +14,42 @@
           <td>Protein</td>
           <td>Carbohydrates</td>
         </tr>
+      
         
 <% for (let i=0;i<data.length;i++) { %>
-<% calIntake+= Number(data[i].kcal) %>
+<% calIntake+= Number(data[i].kcal); protIntake+= Number(data[i].protein); carbIntake+= Number(data[i].carbs) %>
 
 
 
     <tr>
-    <td>  <%= data[i].name %></td> <td> 100g </td> <td>
-      <%= data[i].kcal+ "kcal" %> </td> <td><%= data[i].protein %></td><td><%= data[i].carbs %></td>
-      <td> </td>  
+    <td>  <%= data[i].name %></td> <td><label for="gram"></label> 
+      <select name="gram" id="<%=count %>">
+        <% count++; %>
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+        <option value="400">400</option>
+        <option value="500">500</option>
+      </select> <button onclick="checkVal()">Apply</button></td> 
+      
+      <td>  <%= data[i].kcal*k+ "kcal" %> </td> <td><%= data[i].protein*k %></td><td><%= data[i].carbs*k %></td>
+      <td> <a href="/calculus/<%= i %>" >Delete</a> </td>  
     </tr>
     <% } %>
     
-    <h2> Your current calory intake today is <%= calIntake %>kcal %>  </h2>   
-     
+    <h2> Your current Nutrition intake contains <%= Math.floor(calIntake) %>kcal, <%= Math.floor(protIntake) %>g Protein %> and <%=Math.floor(carbIntake)%>g Carbohydrates   </h2>   
+    <form action="/information" method="GET">
+      <input type="text"  placeholder="Search for more food" name="search" required>
+      <input type="submit">
+      </form>
+    
      
       </table>
-<script>
-  function randy() {
-    location.reload();
-  }
-  
-</script>
+
+    <script>
+      function checkVal() {
+        console.log(t);
+        let opt=document.getElementById(t);
+        console.log(opt.value);
+      }
+    </script>
