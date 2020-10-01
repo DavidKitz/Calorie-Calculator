@@ -17,6 +17,18 @@ app.get('/',(req,res)=> {
     
     
 })
+app.post("/randy", urlencodedParser, (req,res)=> {
+  console.log(req.body);
+for (let i=0;i<=data.length;i++) {
+  if (req.body.i!=1 && data[i]) {
+    let toNbr=Number(data[i].kcal);
+    toNbr*=req.body[i];
+    data[i].kcal=toNbr;
+    console.log(data[i].kcal);
+  }
+}
+res.render("calculator",{data:data});
+})
 app.post("/calculus", urlencodedParser, (req,res)=> {
 
 
@@ -24,16 +36,15 @@ app.post("/calculus", urlencodedParser, (req,res)=> {
  let current2=req.body;
 
 test(current,current2);
-console.log(data);
+
  function test (rName,rObj) {
   for (let i=0;i<=data.length;i++) {
 
     if(data[i] && data[i].name===rName) {
-      console.log("I SHOULD NOT BE HERE");
       return;
     }
   }
-  data.push(rObj);
+  data.push(req.body);
 }
 
 res.render("calculator", {data:data})
