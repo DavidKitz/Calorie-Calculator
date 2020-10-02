@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 let data=[];
-// get information from the table to a form and send it to "/" or mby send to localstorage and get it from there?
+let lastDivision;
 app.set("view engine", "ejs");
 
 
@@ -17,18 +17,8 @@ app.get('/',(req,res)=> {
     
     
 })
-app.post("/randy", urlencodedParser, (req,res)=> {
-  console.log(req.body);
-for (let i=0;i<=data.length;i++) {
-  if (req.body.i!=1 && data[i]) {
-    let toNbr=Number(data[i].kcal);
-    toNbr*=req.body[i];
-    data[i].kcal=toNbr;
-    console.log(data[i].kcal);
-  }
-}
-res.render("calculator",{data:data});
-})
+
+
 app.post("/calculus", urlencodedParser, (req,res)=> {
 
 
@@ -39,12 +29,45 @@ test(current,current2);
 
  function test (rName,rObj) {
   for (let i=0;i<=data.length;i++) {
-
+    console.log(rObj[i]);
     if(data[i] && data[i].name===rName) {
       return;
     }
+    else if(rObj[i]){
+     
+      return;
+    }
   }
+  
   data.push(req.body);
+}
+
+for (let i=0;i<=data.length;i++) {
+  if (req.body[i] && data[i]) {
+    if (lastDivision!=undefined) {
+      let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
+      toNbr=toNbr/lastDivision;
+      toNbr2=toNbr2/lastDivision;
+      toNbr3=toNbr3/lastDivision;
+      toNbr*=req.body[i];
+      toNbr2*=req.body[i];
+      toNbr3*=req.body[i];
+      data[i].kcal=Math.round((toNbr * 100) / 100).toFixed(2);
+      data[i].protein=Math.round((toNbr2 * 100) / 100).toFixed(2);
+      data[i].carbs=Math.round((toNbr3 * 100) / 100).toFixed(2);
+      lastDivision=req.body[i];
+    }
+    else {
+    let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
+    toNbr*=req.body[i];
+    toNbr2*=req.body[i];
+    toNbr3*=req.body[i];
+    data[i].kcal=Math.round((toNbr * 100) / 100).toFixed(2);
+    data[i].protein=Math.round((toNbr2 * 100) / 100).toFixed(2);
+    data[i].carbs=Math.round((toNbr3 * 100) / 100).toFixed(2);
+    lastDivision=req.body[i];
+  }
+  }
 }
 
 res.render("calculator", {data:data})
