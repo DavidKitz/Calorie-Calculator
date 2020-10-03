@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 let data=[];
 let lastDivision;
+let newReq=false;
 app.set("view engine", "ejs");
 
 
@@ -20,8 +21,8 @@ app.get('/',(req,res)=> {
 
 
 app.post("/calculus", urlencodedParser, (req,res)=> {
-
-
+let idReq=0;
+let optionReq=1;
  let current=req.body.name;
  let current2=req.body;
 
@@ -29,7 +30,7 @@ test(current,current2);
 
  function test (rName,rObj) {
   for (let i=0;i<=data.length;i++) {
-    console.log(rObj[i]);
+    //console.log(rObj[i]);
     if(data[i] && data[i].name===rName) {
       return;
     }
@@ -41,43 +42,37 @@ test(current,current2);
   
   data.push(req.body);
 }
-
 for (let i=0;i<=data.length;i++) {
   if (req.body[i] && data[i]) {
-    if (lastDivision!=undefined) {
-      let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
-      toNbr=toNbr/lastDivision;
-      toNbr2=toNbr2/lastDivision;
-      toNbr3=toNbr3/lastDivision;
-      toNbr*=req.body[i];
-      toNbr2*=req.body[i];
-      toNbr3*=req.body[i];
-      data[i].kcal=Math.round((toNbr * 100) / 100).toFixed(2);
-      data[i].protein=Math.round((toNbr2 * 100) / 100).toFixed(2);
-      data[i].carbs=Math.round((toNbr3 * 100) / 100).toFixed(2);
-      lastDivision=req.body[i];
-    }
-    else {
+    optionReq=req.body[i];
+    idReq=i;
+   
+   
     let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
     toNbr*=req.body[i];
     toNbr2*=req.body[i];
     toNbr3*=req.body[i];
-    data[i].kcal=Math.round((toNbr * 100) / 100).toFixed(2);
-    data[i].protein=Math.round((toNbr2 * 100) / 100).toFixed(2);
-    data[i].carbs=Math.round((toNbr3 * 100) / 100).toFixed(2);
-    lastDivision=req.body[i];
-  }
+    data[i].kcal=toNbr;
+    data[i].protein=toNbr2;
+    data[i].carbs=toNbr3;
+    
+    newReq=true;
+  
   }
 }
 
-res.render("calculator", {data:data})
+
+
+
+res.render("calculator", {data:data, optionReq:optionReq, idReq:idReq})
 });
 
 app.get("/calculus/:id", (req,res)=> {
+  let optionReq=1;
   const { id } = req.params;
   data.splice(id,1);
   console.log(data);
-  res.render("calculator",{data:data})
+  res.render("calculator",{data:data, optionReq:optionReq})
 });
 
 app.get("/results",(req,res)=> {

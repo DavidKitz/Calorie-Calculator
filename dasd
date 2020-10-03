@@ -1,0 +1,27 @@
+for (let i=0;i<=data.length;i++) {
+  if (req.body[i] && data[i]) {
+    if (lastDivision!=undefined) {
+      let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
+      toNbr=toNbr/lastDivision;
+      toNbr2=toNbr2/lastDivision;
+      toNbr3=toNbr3/lastDivision;
+      toNbr*=req.body[i];
+      toNbr2*=req.body[i];
+      toNbr3*=req.body[i];
+      data[i].kcal=Math.round((toNbr * 100) / 100).toFixed(2);
+      data[i].protein=Math.round((toNbr2 * 100) / 100).toFixed(2);
+      data[i].carbs=Math.round((toNbr3 * 100) / 100).toFixed(2);
+      lastDivision=req.body[i];
+    }
+    else {
+    let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
+    toNbr*=req.body[i];
+    toNbr2*=req.body[i];
+    toNbr3*=req.body[i];
+    data[i].kcal=Math.round((toNbr * 100) / 100).toFixed(2);
+    data[i].protein=Math.round((toNbr2 * 100) / 100).toFixed(2);
+    data[i].carbs=Math.round((toNbr3 * 100) / 100).toFixed(2);
+    lastDivision=req.body[i];
+  }
+  }
+}
