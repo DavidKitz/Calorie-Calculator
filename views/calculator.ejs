@@ -25,7 +25,7 @@
     <td>  <%= data[i].name %></td> <td><label for="gram"></label> 
       <form action="/calculus" method="POST">
       <select name="<%=count %>" id="<%=count %>">
-     <%= console.log("Optionreq: "+ optionReq) %>
+     <%= console.log("Optionreq: "+ optionReq+ "news: "+3*data[i].kcal/optionReq) %>
         <option value="1">100</option>
         <option value="2" <%= data[idReq].kcal == 2*data[i].kcal/optionReq ? 'selected' : ''%>>200</option>
         <option value="3" <%= data[idReq].kcal == 3*data[i].kcal/optionReq  ? 'selected' : ''%>>300</option>

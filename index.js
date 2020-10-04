@@ -6,8 +6,7 @@ var bodyParser = require('body-parser');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 let data=[];
-let lastDivision;
-let newReq=false;
+let lastDivision=[];
 app.set("view engine", "ejs");
 
 
@@ -43,20 +42,26 @@ test(current,current2);
   data.push(req.body);
 }
 for (let i=0;i<=data.length;i++) {
+
+ 
   if (req.body[i] && data[i]) {
     optionReq=req.body[i];
     idReq=i;
-   
-   
     let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
-    toNbr*=req.body[i];
-    toNbr2*=req.body[i];
-    toNbr3*=req.body[i];
-    data[i].kcal=toNbr;
-    data[i].protein=toNbr2;
-    data[i].carbs=toNbr3;
+    if(lastDivision[i]){
+      toNbr/=lastDivision[i];
+     toNbr2/=lastDivision[i];
+     toNbr3/=lastDivision[i];
+    }
     
-    newReq=true;
+     toNbr*=req.body[i];
+     toNbr2*=req.body[i];
+     toNbr3*=req.body[i];
+     data[i].kcal=toNbr;
+     data[i].protein=toNbr2;
+     data[i].carbs=toNbr3;
+    lastDivision[i]=req.body[i];
+    
   
   }
 }
