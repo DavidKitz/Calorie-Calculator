@@ -29,7 +29,7 @@ test(current,current2);
 
  function test (rName,rObj) {
   for (let i=0;i<=data.length;i++) {
-    //console.log(rObj[i]);
+    console.log(rObj[i]);
     if(data[i] && data[i].name===rName) {
       return;
     }
@@ -57,9 +57,9 @@ for (let i=0;i<=data.length;i++) {
      toNbr*=req.body[i];
      toNbr2*=req.body[i];
      toNbr3*=req.body[i];
-     data[i].kcal=toNbr;
-     data[i].protein=toNbr2;
-     data[i].carbs=toNbr3;
+     data[i].kcal=Math.floor(toNbr);
+     data[i].protein=Math.floor(toNbr2);
+     data[i].carbs=Math.floor(toNbr3);
     lastDivision[i]=req.body[i];
     
   
