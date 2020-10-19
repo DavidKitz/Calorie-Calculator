@@ -1,1 +1,1 @@
-## Calory Calculator using the food-calorie-data-search API
+## Calory Calculator using the Food Calorie Data Search API
