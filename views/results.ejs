@@ -1,3 +1,4 @@
+<%- include('partials/nav'); %>
 <h1> Results for <%= food[0].toUpperCase()+ food.slice(1) %> </h1>
 <%  if (dataSet.length===0) { %> <h1>No results found sorry!</h1>  <% } %>
 
@@ -35,3 +36,5 @@
 <form action="/" method="GET">
   <input type="submit" value="Search for more food">
 </form>
+</body>
+</html>
