@@ -1,9 +1,10 @@
 <%- include('partials/nav'); %>
+
 <h1> Results for <%= food[0].toUpperCase()+ food.slice(1) %> </h1>
 <%  if (dataSet.length===0) { %> <h1>No results found sorry!</h1>  <% } %>
 
 <table>
-  <% if(dataSet.length===0 !== true) { %>
+  <% if(dataSet.length === 0 !== true) { %>
   <tr>
     <td>Name of the Food</td>
     <td>Serving Size</td>
@@ -17,7 +18,7 @@
   <tr>
   <td>  <%= data.shrt_desc %></td> <td> 100g </td> <td>
     <%= data.energ_kcal+ "kcal" %> </td> <td><%= data.protein %></td><td><%= data.carbohydrt %></td>
-     <td> 
+     <td id="submit"> 
       <form action="/calculus" method="POST">
         <input type="hidden" name="name" value="<%= data.shrt_desc %>">
         <input type="hidden" name="kcal" value="<%= data.energ_kcal %>">
