@@ -10,13 +10,47 @@ let lastDivision=[];
 app.set("view engine", "ejs");
 
 
+/// TODO: REMOVE SEARCH PAGE AND GET BOTH SEARCH AND RESULTS ON ONE PAGE
 
 
-app.get('/',(req,res)=> {
-    res.render("search");
+app.get("/", (req,res)=> {
+ 
+   let food = " "; 
+  
+  if (req.query)
+  {
+    food=req.query.search;
+  }
+  
+  
+  
+  
+  axios({
+    "method":"GET",
+    "url":"https://food-calorie-data-search.p.rapidapi.com/api/search",
+    "headers":{
+    "content-type":"application/octet-stream",
+    "x-rapidapi-host":"food-calorie-data-search.p.rapidapi.com",
+    "x-rapidapi-key":"1d8617a7bemsh3a5cef89dcc2608p1841e6jsnf4c58e7a3b87",
+    "useQueryString":true
+    },"params":{
+    "keyword":food
+    }
+    })
+          .then((response)=>{
+              
+              
+            let dataSet=response.data;
+           console.log(dataSet)
+            res.render("search", {dataSet:dataSet, food:food});
+            
+          })
+          .catch((error)=>{
+            console.log(error)
+          })
     
-    
-})
+  });
+  
 
 
 app.post("/calculus", urlencodedParser, (req,res)=> {
@@ -84,34 +118,6 @@ app.get("/results",(req,res)=> {
   
 })
 
-app.get("/information", (req,res)=> {
-let food=req.query.search;
-
-axios({
-  "method":"GET",
-  "url":"https://food-calorie-data-search.p.rapidapi.com/api/search",
-  "headers":{
-  "content-type":"application/octet-stream",
-  "x-rapidapi-host":"food-calorie-data-search.p.rapidapi.com",
-  "x-rapidapi-key":"1d8617a7bemsh3a5cef89dcc2608p1841e6jsnf4c58e7a3b87",
-  "useQueryString":true
-  },"params":{
-  "keyword":food
-  }
-  })
-        .then((response)=>{
-            
-            
-          let dataSet=response.data;
-         
-          res.render("results", {dataSet:dataSet, food:food});
-          
-        })
-        .catch((error)=>{
-          console.log(error)
-        })
-	
-});
 
 
 app.listen(3000, ()=> {
