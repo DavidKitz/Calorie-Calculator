@@ -1,5 +1,5 @@
 
-<%- include('partials/nav'); %>
+<%- include('partials/nav2'); %>
 <% let deleteList= function (i) { %>
  <% data.splice(i,1)  } %>
 <% let calIntake=0,protIntake=0,carbIntake=0,k=1,count=0; %>
@@ -42,7 +42,7 @@
     <% } %>
     
     <h2> Your current Nutrition intake contains <%= Math.floor(calIntake) %> kcal, <%= Math.floor(protIntake) %>g Protein %> and <%=Math.floor(carbIntake)%>g Carbohydrates   </h2>   
-    <form action="/information" method="GET">
+    <form action="/" method="GET">
       <input type="text"  placeholder="Search for more food" name="search" required>
       <input type="submit">
       </form>
