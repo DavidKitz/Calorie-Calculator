@@ -10,7 +10,7 @@ let lastDivision=[];
 app.set("view engine", "ejs");
 
 
-/// TODO: REMOVE SEARCH PAGE AND GET BOTH SEARCH AND RESULTS ON ONE PAGE
+/// BUG: IF TWO LIST ELEMENTS IN CALCULUS AND YOU DELETE ONE, U GET IDREQ NOT DEFINED
 
 
 app.get("/", (req,res)=> {
@@ -54,7 +54,7 @@ app.get("/", (req,res)=> {
 
 
 app.post("/calculus", urlencodedParser, (req,res)=> {
-let idReq=0;
+let idReq = 0;
 let optionReq=1;
  let current=req.body.name;
  let current2=req.body;
