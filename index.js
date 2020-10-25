@@ -21,10 +21,7 @@ app.get("/", (req,res)=> {
   {
     food=req.query.search;
   }
-  
-  
-  
-  
+
   axios({
     "method":"GET",
     "url":"https://food-calorie-data-search.p.rapidapi.com/api/search",
@@ -41,7 +38,6 @@ app.get("/", (req,res)=> {
               
               
             let dataSet=response.data;
-           console.log(dataSet)
             res.render("search", {dataSet:dataSet, food:food});
             
           })
@@ -56,29 +52,31 @@ app.get("/", (req,res)=> {
 app.post("/calculus", urlencodedParser, (req,res)=> {
 let idReq = 0;
 let optionReq=1;
- let current=req.body.name;
- let current2=req.body;
+let current=req.body.name;
+let current2=req.body;
 
 test(current,current2);
 
  function test (rName,rObj) {
-  for (let i=0;i<=data.length;i++) {
-    console.log(rObj[i]);
-    if(data[i] && data[i].name===rName) {
+  for (let i=0;i<=data.length;i++) 
+  {
+   
+    if(data[i] && data[i].name === rName) 
+    {
       return;
     }
-    else if(rObj[i]){
-     
+    else if(rObj[i]) 
+    {
       return;
     }
-  }
-  
-  data.push(req.body);
+  } 
+data.push(req.body);
 }
 for (let i=0;i<=data.length;i++) {
 
  
   if (req.body[i] && data[i]) {
+    
     optionReq=req.body[i];
     idReq=i;
     let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
@@ -99,25 +97,24 @@ for (let i=0;i<=data.length;i++) {
   
   }
 }
-
-
-
-
 res.render("calculator", {data:data, optionReq:optionReq, idReq:idReq})
 });
 
 app.get("/calculus/:id", (req,res)=> {
   let optionReq=1;
   const { id } = req.params;
+  let idReq;
+ // Remove requested id from data array
   data.splice(id,1);
-  console.log(data);
-  res.render("calculator",{data:data, optionReq:optionReq})
+  for (let i = 0; i < data.length; i++)
+  {
+    if (data[i])
+    {
+      idReq = i;
+    }
+  }
+  res.render("calculator",{data:data, optionReq:optionReq, idReq:idReq})
 });
-
-app.get("/results",(req,res)=> {
-  
-})
-
 
 
 app.listen(3000, ()=> {
