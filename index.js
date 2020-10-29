@@ -1,16 +1,14 @@
 const express=require('express');
-const app= express();
 const axios = require('axios');
 const { Template } = require('ejs');
 var bodyParser = require('body-parser');
+require('dotenv').config()
 
+const app= express();
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 let data=[];
 let lastDivision=[];
 app.set("view engine", "ejs");
-
-
-/// BUG: IF TWO LIST ELEMENTS IN CALCULUS AND YOU DELETE ONE, U GET IDREQ NOT DEFINED
 
 
 app.get("/", (req,res)=> {
@@ -28,7 +26,7 @@ app.get("/", (req,res)=> {
     "headers":{
     "content-type":"application/octet-stream",
     "x-rapidapi-host":"food-calorie-data-search.p.rapidapi.com",
-    "x-rapidapi-key":"1d8617a7bemsh3a5cef89dcc2608p1841e6jsnf4c58e7a3b87",
+    "x-rapidapi-key": process.env.API_KEY,
     "useQueryString":true
     },"params":{
     "keyword":food
