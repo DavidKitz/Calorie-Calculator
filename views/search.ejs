@@ -1,17 +1,12 @@
 <%- include('partials/nav'); %>
-    <h1> Search for your food to get your kcal intake</h1>
-    
-<form action="/" method="GET">
-<input type="text"  placeholder="Search for your food" name="search" required>
-<input type="submit">
-</form>
-
 
 
 <% if (dataSet == undefined) { %> <% return 1; %> <% } %>
 <%  if (dataSet.length===0) { %> <h1>No results found sorry!</h1>  <% } %>
 
-<table>
+<div class="container">
+  <h3 style="text-align: center;"> Search for your food to get your kcal intake</h1>
+<table class="table-striped">
   <% if(dataSet.length == 0 !== true) { %>
   <tr>
     <td>Name of the Food</td>
@@ -20,9 +15,9 @@
     <td>Protein</td>
     <td>Carbohydrates</td>
   </tr>
-</table>
+
 <% dataSet.forEach((data)=> { %>
-<table>
+
   <tr>
   <td>  <%= data.shrt_desc %></td> <td> 100g </td> <td>
     <%= data.energ_kcal+ "kcal" %> </td> <td><%= data.protein %></td><td><%= data.carbohydrt %></td>
@@ -32,13 +27,20 @@
         <input type="hidden" name="kcal" value="<%= data.energ_kcal %>">
         <input type="hidden" name="protein" value="<%= data.protein %>">
         <input type="hidden" name="carbs" value="<%= data.carbohydrt %>">
-        <input type="submit"  value="submit">
+        <button type="submit" class="btn btn-info">Submit</button>
      </form>
       </td>
 
    </tr> 
+   <% }) } %>
 </table>
+</div>
+<div class="container" style="text-align: center;">
+  <form id="search" action="/" method="GET">
+  <input class="form-control" type="text"  placeholder="Search for your food" autocomplete="off" name="search" required autofocus>
+  <button class="btn btn-primary"  type="submit">Search</button>
+  </form>
+  </div>
 
-<% }) } %>
 </body>
 </html>

@@ -103,7 +103,11 @@ app.get("/calculus/:id", (req,res)=> {
   const { id } = req.params;
   let idReq;
  // Remove requested id from data array
-  data.splice(id,1);
+ if (id != "None")
+ {
+    data.splice(id,1);
+ }
+  
   for (let i = 0; i < data.length; i++)
   {
     if (data[i])
@@ -113,6 +117,7 @@ app.get("/calculus/:id", (req,res)=> {
   }
   res.render("calculator",{data:data, optionReq:optionReq, idReq:idReq})
 });
+
 
 
 app.listen(3000, ()=> {

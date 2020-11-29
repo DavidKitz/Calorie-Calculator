@@ -1,12 +1,12 @@
 
-<%- include('partials/nav2'); %>
+<%- include('partials/nav'); %>
 <% let deleteList= function (i) { %>
  <% data.splice(i,1)  } %>
 <% let calIntake=0,protIntake=0,carbIntake=0,k=1,count=0; %>
 
- 
+ <div class="container">
     
-    <table>
+    <table class="table-striped">
        
         <tr>
           <td>Name of the Food</td>
@@ -33,22 +33,26 @@
         <option value="4"<%= data[idReq].kcal == 4*data[i].kcal/optionReq ? 'selected' : ''%>>400</option>
         <option value="5"<%= data[idReq].kcal == 5*data[i].kcal/optionReq ? 'selected' : ''%>>500</option>
        
-      </select> <input type="submit" value="submit"></td> 
+      </select> <input type="submit" value="submit" class="btn btn-info"></td> 
     </form>
       <td id="headlines" class="<%=count %>">  <%= data[i].kcal %> </td> <td id="headlines" class="<%=count %>"><%= data[i].protein %></td><td id="headlines" class="<%=count %>"><%= data[i].carbs %></td>
-      <td id="linker"> <a href="/calculus/<%=i%>" >Delete</a> </td>  
+      <td id="linker"> <a href="/calculus/<%=i%>" class="btn btn-secondary">Delete</a> </td>  
     </tr>
     <% count++; %>
     <% } %>
+    <h3 > Your current Nutrition intake contains <%= Math.floor(calIntake) %> kcal, <%= Math.floor(protIntake) %>g Protein %> and <%=Math.floor(carbIntake)%>g Carbohydrates   </h2>   
     
-    <h2> Your current Nutrition intake contains <%= Math.floor(calIntake) %> kcal, <%= Math.floor(protIntake) %>g Protein %> and <%=Math.floor(carbIntake)%>g Carbohydrates   </h2>   
-    <form action="/" method="GET">
-      <input type="text"  placeholder="Search for more food" name="search" required>
-      <input type="submit">
-      </form>
+   
     
      
       </table>
-
+    </div>
+    <div class="container" style="text-align: center;">
+      
+    <form id="search" action="/" method="GET">
+      <input class="form-control" type="text"  placeholder="Search for more food" autocomplete="off" name="search"  required autofocus>
+      <input type="submit" class="btn btn-primary">
+      </form>
+    </div>
     </body>
     </html>
