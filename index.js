@@ -118,8 +118,8 @@ app.get("/calculus/:id", (req,res)=> {
   res.render("calculator",{data:data, optionReq:optionReq, idReq:idReq})
 });
 
-
+const port = process.env.PORT || 3000
 
 app.listen(3000, ()=> {
-    console.log("Server is running");
+    console.log(`Serving on ${port}`);
 })
