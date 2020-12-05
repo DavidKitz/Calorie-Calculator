@@ -4,6 +4,8 @@
  <% data.splice(i,1)  } %>
 <% let calIntake=0,protIntake=0,carbIntake=0,k=1,count=0; %>
 
+ 
+
  <div class="container">
     
     <table class="table-striped">
@@ -20,13 +22,16 @@
 <% for (let i=0;i<data.length;i++) { %>
 <% calIntake+= Number(data[i].kcal); protIntake+= Number(data[i].protein); carbIntake+= Number(data[i].carbs) %>
 
-
+<% let test = 100 %>
+<% test = 200 %>
 
     <tr>
     <td>  <%= data[i].name %></td> <td><label for="gram"></label> 
       <form action="/calculus" method="POST">
-      <select name="<%=count %>" id="<%=count %>">
+        
+      <select name="<%=count %>" id="<%=count %>" onchange=<%= console.log(count) %> >
      <% // check if current value is multiplied by 2-5 of original value, then select corresponding option %>
+    
         <option value="1">100</option>
         <option value="2" <%= data[idReq].kcal == 2*data[i].kcal/optionReq ? 'selected' : ''%>>200</option>
         <option value="3" <%= data[idReq].kcal == 3*data[i].kcal/optionReq  ? 'selected' : ''%>>300</option>
@@ -35,6 +40,7 @@
        
       </select> <input type="submit" value="submit" class="btn btn-info"></td> 
     </form>
+    
       <td id="headlines" class="<%=count %>">  <%= data[i].kcal %> </td> <td id="headlines" class="<%=count %>"><%= data[i].protein %></td><td id="headlines" class="<%=count %>"><%= data[i].carbs %></td>
       <td id="linker"> <a href="/calculus/<%=i%>" class="btn btn-danger">Delete</a> </td>  
     </tr>
@@ -54,5 +60,6 @@
       <input type="submit" class="btn btn-primary">
       </form>
     </div>
+  
     </body>
     </html>
