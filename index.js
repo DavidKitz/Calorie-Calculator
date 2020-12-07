@@ -6,8 +6,9 @@ require('dotenv').config()
 
 const app= express();
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-let data=[];
-let lastDivision=[];
+let data = [];
+let optionReq = [];
+let lastDivision = [];
 app.set("view engine", "ejs");
 
 
@@ -49,7 +50,6 @@ app.get("/", (req,res)=> {
 
 app.post("/calculus", urlencodedParser, (req,res)=> {
 let idReq = 0;
-let optionReq=1;
 let current=req.body.name;
 let current2=req.body;
 
@@ -75,7 +75,7 @@ for (let i=0;i<=data.length;i++) {
  
   if (req.body[i] && data[i]) {
     
-    optionReq=req.body[i];
+    optionReq[i]=req.body[i];
     idReq=i;
     let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
     if(lastDivision[i]){
@@ -90,7 +90,7 @@ for (let i=0;i<=data.length;i++) {
      data[i].kcal=toNbr;
      data[i].protein=toNbr2;
      data[i].carbs=toNbr3;
-    lastDivision[i]=req.body[i];
+     lastDivision[i]=req.body[i];
     
   
   }
@@ -99,7 +99,7 @@ res.render("calculator", {data:data, optionReq:optionReq, idReq:idReq})
 });
 
 app.get("/calculus/:id", (req,res)=> {
-  let optionReq=1;
+  
   const { id } = req.params;
   let idReq;
  // Remove requested id from data array

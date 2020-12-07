@@ -69,8 +69,7 @@
     </div>
   </nav>  
 
-<% let deleteList= function (i) { %>
- <% data.splice(i,1)  } %>
+
 <% let calIntake=0,protIntake=0,carbIntake=0,k=1,count=0; %>
 
  
@@ -91,8 +90,6 @@
 <% for (let i=0;i<data.length;i++) { %>
 <% calIntake+= Number(data[i].kcal); protIntake+= Number(data[i].protein); carbIntake+= Number(data[i].carbs) %>
 
-<% let test = 100 %>
-<% test = 200 %>
 
     <tr>
     <td>  <%= data[i].name %></td> <td><label for="gram"></label> 
@@ -100,12 +97,12 @@
         
       <select name="<%=count %>" id="<%=count %>">
      <% // check if current value is multiplied by 2-5 of original value, then select corresponding option %>
-    
+  
         <option value="1">100</option>
-        <option value="2"  <%= data[idReq].kcal == 2*data[i].kcal/optionReq ? 'selected' : ''%>>200</option>
-        <option value="3" <%= data[idReq].kcal == 3*data[i].kcal/optionReq  ? 'selected' : ''%>>300</option>
-        <option value="4"<%= data[idReq].kcal == 4*data[i].kcal/optionReq ? 'selected' : ''%>>400</option>
-        <option value="5"<%= data[idReq].kcal == 5*data[i].kcal/optionReq ? 'selected' : ''%>>500</option>
+        <option value="2"  <%= data[i].kcal == 2*data[i].kcal/optionReq[i] ? 'selected' : ''%>>200</option>
+        <option value="3" <%= data[i].kcal == 3*data[i].kcal/optionReq[i]  ? 'selected' : ''%>>300</option>
+        <option value="4"<%= data[i].kcal == 4*data[i].kcal/optionReq[i] ? 'selected' : ''%>>400</option>
+        <option value="5"<%= data[i].kcal == 5*data[i].kcal/optionReq[i] ? 'selected' : ''%>>500</option>
        
       </select> <input type="submit" value="submit" class="btn btn-info"></td> 
     </form>
