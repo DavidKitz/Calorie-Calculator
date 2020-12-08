@@ -49,7 +49,7 @@ app.get("/", (req,res)=> {
 
 
 app.post("/calculus", urlencodedParser, (req,res)=> {
-let idReq = 0;
+  
 let current=req.body.name;
 let current2=req.body;
 
@@ -68,7 +68,7 @@ test(current,current2);
       return;
     }
   } 
-data.push(req.body);
+  data.push(req.body);
 }
 for (let i=0;i<=data.length;i++) {
 
@@ -76,7 +76,6 @@ for (let i=0;i<=data.length;i++) {
   if (req.body[i] && data[i]) {
     
     optionReq[i]=req.body[i];
-    idReq=i;
     let toNbr=Number(data[i].kcal),toNbr2=Number(data[i].protein),toNbr3=Number(data[i].carbs);
     if(lastDivision[i]){
       toNbr/=lastDivision[i];
@@ -95,31 +94,24 @@ for (let i=0;i<=data.length;i++) {
   
   }
 }
-res.render("calculator", {data:data, optionReq:optionReq, idReq:idReq})
+res.render("calculator", {data:data, optionReq:optionReq})
 });
 
-app.get("/calculus/:id", (req,res)=> {
+
+app.get("/calculus", (req,res) => {
+
   
-  let id= req.params.id;
-  let idReq;
+  res.render("calculator",{data:data, optionReq:optionReq})
+})
+
+app.post("/delete",urlencodedParser, (req,res)=> {
   
- // Remove requested id from data array
- if (id != "None")
- {
-   console.log("Hello")
-    data.splice(id,1);
- }
- 
-  for (let i = 0; i < data.length; i++)
-  {
-    if (data[i])
-    {
-      idReq = i;
-      
-    }
-  }
-  req.params.id = " ";
-  res.render("calculator",{data:data, optionReq:optionReq, idReq:idReq})
+  let id= req.body.search;
+  //Remove requested id, last requested option and last Division from data array
+  data.splice(id,1);
+  optionReq.splice(id,1)
+  lastDivision.splice(id,1)
+  res.redirect("/calculus")
 });
 
 const port = process.env.PORT || 3000
