@@ -100,22 +100,25 @@ res.render("calculator", {data:data, optionReq:optionReq, idReq:idReq})
 
 app.get("/calculus/:id", (req,res)=> {
   
-  const id= req.params.id;
+  let id= req.params.id;
   let idReq;
-  console.log(id)
+  
  // Remove requested id from data array
  if (id != "None")
  {
+   console.log("Hello")
     data.splice(id,1);
  }
-  
+ 
   for (let i = 0; i < data.length; i++)
   {
     if (data[i])
     {
       idReq = i;
+      
     }
   }
+  req.params.id = " ";
   res.render("calculator",{data:data, optionReq:optionReq, idReq:idReq})
 });
 
